@@ -1,0 +1,602 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Myvaluetech Results</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Invoice</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 4 -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+
+  <link rel="stylesheet" href= "{% static "dist/css/adminlte.min.css" %}">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<div class="card col-sm-10 card-info">
+    <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">BroadSheet </h3>
+              </div>
+
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+              <div class="col-sm-6 heading">
+                                        <table>
+                                             <tr>
+                                            <th>Session: </th>
+                                                 {% for ses in session_year %}
+                                            <td>{{ses.session_start_year}}- {{ses.session_end_year}}</td>
+                                                 {% endfor %}
+                                          </tr>
+                                             <tr>
+                                            <th>Term: </th>
+                                            <td>{{term_obj.term_name}}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Class: </th>
+                                            <td>{{classes_obj.classes_name}}</td>
+                                          </tr>
+
+
+                                        </table>
+                                    </div>
+              <!-- Table row -->
+              <div class="row form-group">
+                                <div class="col-6">
+                                  <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                          <th>Learners</th>
+                                          <th>Subject</th>
+                                          <th>1st CA</th>
+                                          <th>2nd CA</th>
+                                          <th>Unit Ass</th>
+                                          <th>Project</th>
+                                          <th>Exam Score</th>
+                                          <th>Total Score</th>
+                                          <th>Class Avg</th>
+                                          <th>Min Score</th>
+                                          <th>Max Score</th>
+                                          <th>Remarks</th>
+                                          <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for f in eng_scores %}
+                                    <tr>
+                                      <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.eng_score1}}</td>
+                                      <td>{{f.eng_score2}}</td>
+                                      <td>{{f.eng_score3}}</td>
+                                      <td>{{f.eng_project_score}}</td>
+                                      <td>{{f.eng_exam_score}}</td>
+                                      <td>{{f.eng_total_score}}</td>
+                                      <td>{{dat.avg}}</td>
+                                        <td>{{dat.min}}</td>
+                                        <td>{{dat.max}}</td>
+                                      <td>{% if f.eng_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.eng_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.eng_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.eng_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.eng_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.eng_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.eng_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.eng_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.eng_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.eng_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                        {% for f in mth_scores %}
+                    <tr>
+                      <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                      <td>{{f.subject_id.subject_name}}</td>
+                      <td>{{f.mth_score1}}</td>
+                      <td>{{f.mth_score2}}</td>
+                      <td>{{f.mth_score3}}</td>
+                      <td>{{f.mth_project_score}}</td>
+                      <td>{{f.mth_exam_score}}</td>
+                      <td>{{f.mth_total_score}}</td>
+                      <td>{{dat1.avg}} </td>
+                      <td>{{dat1.min}} </td>
+                      <td>{{dat1.max}} </td>
+                      <td>{% if f.mth_total_score >= 70 %}
+                        <div><span>EXCELLENT</span></div>
+                        {% elif f.mth_total_score >= 60 %}
+                        <div><span>GREAT</span></div>
+                        {% elif f.mth_total_score >= 50 %}
+                       <div> <span>GOOD</span></div>
+                        {% elif f.mth_total_score >= 40 %}
+                       <div> <span>AVERAGE</span></div>
+                        {% elif f.mth_total_score >= 30 %}
+                        <div><span>WEAK</span></div>
+                        {% else %}
+                        <div><span>POOR</span></div>
+                        {% endif %}</td>
+                      <td>
+                        {% if f.mth_total_score >= 70 %}
+                        <div><span class="badge badge-success">A</span></div>
+                        {% elif f.mth_total_score >= 60 %}
+                        <div><span class="badge badge-primary">B</span></div>
+                        {% elif f.mth_total_score >= 50 %}
+                       <div> <span class="badge badge-info">C</span></div>
+                        {% elif f.mth_total_score >= 40 %}
+                       <div> <span class="badge badge-info">D</span></div>
+                        {% elif f.mth_total_score >= 30  %}
+                        <div><span class="badge badge-warning">E</span></div>
+                        {% else %}
+                        <div><span class="badge badge-danger">F</span></div>
+                        {% endif %}
+                      </td>
+
+                    </tr>
+                        {% endfor %}
+                    </tbody>
+                                       <tbody>
+                                        {% for f in sci_scores %}
+                                    <tr>
+                                     <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.sci_score1}}</td>
+                                      <td>{{f.sci_score2}}</td>
+                                      <td>{{f.sci_score3}}</td>
+                                      <td>{{f.sci_project_score}}</td>
+                                      <td>{{f.sci_exam_score}}</td>
+                                      <td>{{f.sci_total_score}}</td>
+
+                                      <td>{{dat2.avg}} </td>
+                                      <td>{{dat2.min}} </td>
+                                      <td>{{dat2.max}} </td>
+                                      <td>{% if f.sci_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.sci_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.sci_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.sci_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.sci_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.sci_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.sci_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.sci_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.sci_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.sci_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in nv_scores %}
+                                    <tr>
+                                        <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.nv_score1}}</td>
+                                      <td>{{f.nv_score2}}</td>
+                                      <td>{{f.nv_score3}}</td>
+                                      <td>{{f.nv_project_score}}</td>
+                                      <td>{{f.nv_exam_score}}</td>
+
+                                      <td>{{f.nv_total_score}}</td>
+
+                                      <td>{{dat3.avg}} </td>
+                                      <td>{{dat3.min}} </td>
+                                      <td>{{dat3.max}} </td>
+                                      <td>{% if f.nv_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.nv_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.nv_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.nv_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.nv_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.nv_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.nv_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.nv_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.nv_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.nv_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in ict_scores %}
+                                    <tr>
+                                    <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.ict_score1}}</td>
+                                      <td>{{f.ict_score2}}</td>
+                                      <td>{{f.ict_score3}}</td>
+                                      <td>{{f.ict_project_score}}</td>
+                                      <td>{{f.ict_exam_score}}</td>
+
+                                      <td>{{f.ict_total_score}}</td>
+
+                                      <td>{{dat4.avg}} </td>
+                                      <td>{{dat4.min}} </td>
+                                      <td>{{dat4.max}} </td>
+                                      <td>{% if f.ict_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.ict_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.ict_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.ict_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.ict_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.ict_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.ict_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.ict_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.ict_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.ict_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in irs_scores %}
+                                    <tr>
+                                        <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.irs_score1}}</td>
+                                      <td>{{f.irs_score2}}</td>
+                                      <td>{{f.irs_score3}}</td>
+                                      <td>{{f.irs_project_score}}</td>
+                                      <td>{{f.irs_exam_score}}</td>
+
+                                      <td>{{f.irs_total_score}}</td>
+
+                                      <td>{{dat5.avg}} </td>
+                                      <td>{{dat5.min}} </td>
+                                      <td>{{dat5.max}} </td>
+                                      <td>{% if f.irs_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.irs_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.irs_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.irs_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.irs_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.irs_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.irs_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.irs_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.irs_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.irs_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in phe_scores %}
+                                    <tr>
+                                    <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.phe_score1}}</td>
+                                      <td>{{f.phe_score2}}</td>
+                                      <td>{{f.phe_score3}}</td>
+                                      <td>{{f.phe_project_score}}</td>
+                                      <td>{{f.phe_exam_score}}</td>
+
+                                      <td>{{f.phe_total_score}}</td>
+
+                                      <td>{{dat6.avg}} </td>
+                                      <td>{{dat6.min}} </td>
+                                      <td>{{dat6.max}} </td>
+                                      <td>{% if f.phe_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.phe_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.phe_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.phe_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.v_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.phe_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.phe_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.phe_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.phe_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.phe_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in crk_scores %}
+                                    <tr>
+                                        <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.crk_score1}}</td>
+                                      <td>{{f.crk_score2}}</td>
+                                      <td>{{f.crk_score3}}</td>
+                                      <td>{{f.crk_project_score}}</td>
+                                      <td>{{f.crk_exam_score}}</td>
+
+                                      <td>{{f.crk_total_score}}</td>
+
+                                      <td>{{dat7.avg}} </td>
+                                      <td>{{dat7.min}} </td>
+                                      <td>{{dat7.max}} </td>
+                                      <td>{% if f.crk_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.crk_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.crk_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.crk_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.crk_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.crk_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.crk_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.crk_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.crk_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.crk_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in quran_scores %}
+                                    <tr>
+                                    <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.quran_score1}}</td>
+                                      <td>{{f.quran_score2}}</td>
+                                      <td>{{f.quran_score3}}</td>
+                                      <td>{{f.quran_project_score}}</td>
+                                      <td>{{f.quran_exam_score}}</td>
+
+                                      <td>{{f.quran_total_score}}</td>
+
+                                      <td>{{dat8.avg}} </td>
+                                      <td>{{dat8.min}} </td>
+                                      <td>{{dat8.max}} </td>
+                                      <td>{% if f.quran_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.quran_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.quran_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.quran_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.quran_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.quran_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.quran_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.quran_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.quran_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.quran_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                       <tbody>
+                                        {% for f in arab_scores %}
+                                    <tr>
+                                    <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.arab_score1}}</td>
+                                      <td>{{f.arab_score2}}</td>
+                                      <td>{{f.arab_score3}}</td>
+                                      <td>{{f.arab_project_score}}</td>
+                                      <td>{{f.arab_exam_score}}</td>
+
+                                      <td>{{f.arab_total_score}}</td>
+
+                                      <td>{{dat9.avg}} </td>
+                                      <td>{{dat9.min}} </td>
+                                      <td>{{dat9.max}} </td>
+                                      <td>{% if f.arab_total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.arab_total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.arab_total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.arab_total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.arab_total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.arab_total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.arab_total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.arab_total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.arab_total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.arab_total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+
+
+
+                                  </table>
+                                </div>
+
+                              </div>
+              <!-- /.row -->
+
+
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+
+
+
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+
+
+
+
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+<script type="text/javascript">
+  window.addEventListener("load", window.print());
+</script>
+</html>
+

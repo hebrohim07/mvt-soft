@@ -1,0 +1,176 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static "dist/img/MVTLOGO1.PNG" %}" class="img-circle elevation-2"  alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Myvaluetech</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+          <!----- my profile------->
+          <li class="nav-item">
+            {% url "addstaff" as addstaff %}
+            <a href="{% url "addstaff"%}" class="nav-link {% if request.path == addstaff %} active {% endif %}">
+              <i class="fa fa-graduation-cap"></i>
+              <p>
+               My Profile
+                <span class="right badge badge-teal">View</span>
+              </p>
+            </a>
+          </li>
+
+          <!----- take and view attendance -------->
+
+            <li class="nav-item has-treeview ">
+
+            <a href="{% url "staffhome" %}" class="nav-link {% if request.path == takeattendance %} active {% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Take Attendance
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+                {% for t in term %}
+            <ul class="nav nav-treeview" >
+
+              <li class="nav-item">
+                <a href="/takeattendance/{{t.id}}" class="nav-link active" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>{{t.term_name}}</p>
+                </a>
+              </li>
+
+            </ul>
+                 {% endfor %}
+          </li>
+
+            <li class="nav-item has-treeview ">
+            {% url "view_attendance" as view_attendance  %}
+            <a href="{% url "staffhome" %}" class="nav-link {% if request.path == view_attendance %} active {% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               View Attendance
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+                {% for t in term %}
+            <ul class="nav nav-treeview" >
+
+              <li class="nav-item">
+                <a href="/view_attendance/{{t.id}}" class="nav-link active" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>{{t.term_name}}</p>
+                </a>
+              </li>
+
+            </ul>
+                 {% endfor %}
+          </li>
+          <!----- ADD results -------->
+
+          <li class="nav-item">
+            {% url "addresult" as addresult %}
+            <a href= "{% url "addresult" %}" class="nav-link {% if request.path == addresult %} active {% endif %}">
+              <i class="fa fa-envelope"></i>
+              <p>
+               Add Results
+                <span class="right badge badge-danger">Add</span>
+              </p>
+            </a>
+          </li>
+          <!----- ADD traits -------->
+          <li class="nav-item has-treeview ">
+            {% url "traits" as traits %}
+            <a href= "{% url "staffhome" %}" class="nav-link {% if request.path == traits %} active {% endif %}">
+              <i class="fa fa-user-graduate"></i>
+              <p>
+               Student Traits
+                <span class="right badge badge-danger">Rate</span>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+                {% for t in term %}
+            <ul class="nav nav-treeview" >
+
+              <li class="nav-item">
+                <a href="/traits/{{t.id}}" class="nav-link active" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>{{t.term_name}}</p>
+                </a>
+              </li>
+
+            </ul>
+                 {% endfor %}
+          </li>
+
+            <!----- ADD remarks -------->
+          <li class="nav-item">
+            {% url "staff_remarks" as staff_remarks %}
+            <a href="{% url "staff_remarks" %}"class="nav-link {% if request.path == staff_remarks %} active {% endif %}">
+              <i class="fa fa-user-graduate"></i>
+              <p>
+               Student Remarks
+                <span class="right badge badge-danger">Ent</span>
+              </p>
+            </a>
+          </li>
+
+          <!----- view res -------->
+          <li class="nav-item">
+            {% url "viewresults" as viewresults %}
+            <a href="{% url "viewresults" %}"class="nav-link {% if request.path == viewresults %} active {% endif %}">
+              <i class="fa fa-chalkboard-teacher"></i>
+              <p>
+               View Results
+                <span class="right badge badge-danger">View</span>
+              </p>
+            </a>
+          </li>
+          <!----- staffleave -------->
+          <li class="nav-item">
+            {% url "staffleave" as staffleave %}
+            <a href="{% url "staffleave" %}"class="nav-link {% if request.path == staffleave %} active {% endif %}">
+              <i class="fa fa-envelope"></i>
+              <p>
+              Staff Leave
+                <span class="right badge badge-danger">APPLY</span>
+              </p>
+            </a>
+          </li>
+          <!----- leavehistory -------->
+
+       <li class="nav-item">
+            {% url "leavehistory" as leavehistory %}
+            <a href="{% url "leavehistory" %}"class="nav-link {% if request.path == leavehistory %} active {% endif %}">
+              <i class="fa fa-clock"></i>
+              <p>
+              Leave History
+                <span class="right badge badge-danger">VIEW</span>
+              </p>
+            </a>
+          </li>
+
+<!-------  calendar and gallery--------->
+
+
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

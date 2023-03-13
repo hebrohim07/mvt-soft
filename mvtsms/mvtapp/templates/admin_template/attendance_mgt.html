@@ -1,0 +1,172 @@
+{% extends 'base.html' %} {% block pageContent %}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card card-default rounded-0 shadow ">
+        <div class="card-header">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <h4 class="card-title fw-bold">Class Attendance Management</h4>
+                <div class="tools">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="attendance-form">
+                {% csrf_token %}
+                <input type="hidden" name="classIns" value="{{ class.pk }}">
+                <div class="container-fluid">
+                    <fieldset>
+                        <legend>Class Details</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex w-100">
+                                    <div class="col-auto pe-2 text-muted">Department:</div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1">
+                                        <p class="m-0 fw-bold">{{ class.assigned_faculty.department }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex w-100">
+                                    <div class="col-auto pe-2 text-muted">School Year:</div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1">
+                                        <p class="m-0 fw-bold">{{ class.school_year }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex w-100">
+                                    <div class="col-auto pe-2 text-muted">Level:</div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1">
+                                        <p class="m-0 fw-bold">{{ class.level }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex w-100">
+                                    <div class="col-auto pe-2 text-muted">Name:</div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1">
+                                        <p class="m-0 fw-bold">{{ class.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex w-100">
+                                    <div class="col-auto pe-2 text-muted">Faculty:</div>
+                                    <div class="col-auto flex-shrink-1 flex-grow-1">
+                                        <p class="m-0 fw-bold">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr>
+                    <fieldset>
+                        <legend>Date of Class</legend>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <input type="date" name="attendance_date" value="{% if date %}{{ date }}{% endif %}" class="form-control form-control-lg rounded-0" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    {% if date %}
+                    <fieldset>
+                        <legend>Attendance List</legend>
+                        <table class="table tables-bordered" id="student-list">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="text-ceter">#</th>
+                                    <th class="text-ceter">Student Code</th>
+                                    <th class="text-ceter">Student Name</th>
+                                    <th class="text-ceter">Total Tardy</th>
+                                    <th class="text-ceter">Total Absent</th>
+                                    <th class="text-ceter">Total Present</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in att_data %}
+                                <tr class="">
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td>{{ student.data.student_code }}</td>
+                                    <td>{{ student.data.first_name }} {{ student.data.middle_name }} {{ student.data.last_name }}</td>
+                                    <td class="text-center">
+                                        <input type="hidden" name="student[]" value="{{ student.data.pk }}">
+                                        <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="1" id="btnradio-{{student.data.pk}}" {% if student.type == '1' %} checked="checked" {% endif %} autocomplete="off" required>
+                                        <label class="btn btn-outline-primary btn-sm px-1 py-0" for="btnradio-{{student.data.pk}}"><i class="fa fa-check  text-light"></i></label>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="2" id="btnradio-2-{{ student.data.pk }}" {% if student.type == '2' %} checked="checked" {% endif %} autocomplete="off">
+                                        <label class="btn btn-outline-warning btn-sm px-1 py-0" for="btnradio-2-{{ student.data.pk }}"><i class="fa fa-check text-light"></label>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="3" id="btnradio-3-{{ student.data.pk }}" {% if student.type == '3' %} checked="checked" {% endif %} autocomplete="off">
+                                        <label class="btn btn-outline-danger btn-sm px-1 py-0" for="btnradio-3-{{ student.data.pk }}"><i class="fa fa-check text-light"></label>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="clear-fix py-3"></div>
+                        <center>
+                            <button class="btn btn-sm btn-primary rounded-0 bg-gradient"><i class="fa fa-save"></i> Save</button>
+                        </center>
+                    </fieldset>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock pageContent %} {% block ScriptBlock %}
+<script>
+    $(function() {
+        $('table td, table th').addClass('px-2 py-1')
+        $('input[name="attendance_date"]').change(function() {
+            location.href = "{% url 'attendance-page' class.pk %}/" + $(this).val()
+        })
+        $('#attendance-form').submit(function(e) {
+            e.preventDefault()
+            var _this = $(this)
+            $('.err-msg').remove();
+            var el = $('<div>')
+            el.addClass("alert alert-danger err-msg")
+            el.hide()
+            start_loader()
+            $.ajax({
+                url: "{% url 'save-attendance' %}",
+                data: $(this).serialize(),
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: err => {
+                    console.log(err)
+                    alert("An error occured ", 'error');
+                    end_loader();
+                },
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        el.removeClass("alert alert-danger err-msg ")
+                        location.reload()
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        el.html(resp.msg)
+                    } else {
+                        el.text("An error occured ", 'error');
+                        end_loader();
+                        console.err(resp)
+                    }
+                    _this.prepend(el)
+                    el.show('slow')
+                    $("html, body, .modal ").scrollTop(0);
+                    end_loader()
+                }
+            })
+        })
+    })
+</script>
+{% endblock ScriptBlock %}

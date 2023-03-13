@@ -1,0 +1,348 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+DASHBOARD
+{% endblock page_title %}
+{% block main_content %}
+{% load static %}
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+          <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <div class="icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+                <h3>{{staff_count}}</h3>
+
+                <p>STAFFS</p>
+              </div>
+
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <div class="icon">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+                <h3>{{student_count}}</h3>
+
+                <p>LEARNERS</p>
+              </div>
+
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <div class="icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+                <h3>{{classes_count}}</h3>
+
+                <p>CLASSES</p>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <div class="icon">
+                <i class="fas fa-home"></i>
+              </div>
+                <h3>{{parent_count}}</h3>
+
+                <p>PARENTS</p>
+              </div>
+
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-7 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+              <div class="card">
+        <div class="card bg-gradient-navy">
+              <div class="card-header border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Staff Information Graph
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+               <div class="col-6 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{staff_m_gender}} data-width="100" data-height="100"
+                           data-fgColor="red">
+
+                    <div class="text-white">MALE STAFFS</div>
+                  </div>
+                <div class="col-6 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{staff_f_gender}} data-width="100" data-height="100"
+                           data-fgColor="blue">
+
+                    <div class="text-white">FEMALE STAFFS</div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer bg-transparent">
+                <div class="row">
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{classes_count}} data-width="100" data-height="100"
+                           data-fgColor="green">
+
+                    <div class="text-white">CLASSES</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{staff_count}} data-width="100" data-height="100"
+                           data-fgColor="green">
+
+                    <div class="text-white">STAFFS</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{parent_count}} data-width="100" data-height="100"
+                           data-fgColor="green">
+
+                    <div class="text-white">PARENTS</div>
+                  </div>
+                  <!-- ./col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.card-footer -->
+            </div>
+            </div>
+
+               <!-- LEAVES -->
+                <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                              <div class="card-header">
+                                <h3 class="card-title"><span class="alert alert-warning"><b>LEAVE NOTIFICATIONS</b></span></h3>
+
+
+                              <!-- /.card-header -->
+                              <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                  <thead>
+                                    <tr>
+                                      <th>Staff Name</th>
+                                      <th>Date Applied</th>
+                                      <th>leave_status</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for l in leave %}
+                                    {% if l.leave_status == 0%}
+                                    <tr>
+                                      <td>{{ l.staff_id.admin.last_name }}</td>
+                                      <td>{{ l.created_at }}</td>
+                                      <td><span class="alert alert-info">Pending</span></td>
+
+                                    </tr>
+                                  {% else %}
+                                 <tr></tr>
+                                  {% endif %}
+                                  {% endfor %}
+
+                                  </tbody>
+                                </table>
+                              </div>
+
+
+                              <!-- /.card-body -->
+                              </div>
+                    <!-- /.card -->
+                            </div>
+                        </div>
+
+                </div>
+            </section>
+
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-5 connectedSortable">
+
+              <!-- solid sales graph -->
+            <div class="card bg-gradient-navy">
+              <div class="card-header border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Information Graph
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+               <div class="col-6 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{student_m_gender}} data-width="100" data-height="100"
+                           data-fgColor="blue">
+
+                    <div class="text-white">MALE LEARNERS</div>
+                  </div>
+                <div class="col-6 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{student_f_gender}} data-width="100" data-height="100"
+                           data-fgColor="green">
+
+                    <div class="text-white">FEMALE LEARNERS</div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer bg-transparent">
+                <div class="row">
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{classes_count}} data-width="100" data-height="100"
+                           data-fgColor="orange">
+
+                    <div class="text-white">CLASSES</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{subject_count}} data-width="100" data-height="100"
+                           data-fgColor="orange">
+
+                    <div class="text-white">SUBJECTS</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <input type="text" class="knob" data-readonly="true" value={{staff_count}} data-width="100" data-height="100"
+                           data-fgColor="orange">
+
+                    <div class="text-white">STAFFS</div>
+                  </div>
+                  <!-- ./col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.card-footer -->
+            </div>
+
+
+            <!-- Calendar -->
+            <div class="card bg-gradient-success">
+              <div class="card-header border-0">
+
+                <h3 class="card-title">
+                  <i class="far fa-calendar-alt"></i>
+                  Calendar
+                </h3>
+                <!-- tools card -->
+                <div class="card-tools">
+                  <!-- button with a dropdown -->
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                      <i class="fas fa-bars"></i></button>
+                    <div class="dropdown-menu float-right" role="menu">
+                      <a href="#" class="dropdown-item">Add new event</a>
+                      <a href="#" class="dropdown-item">Clear events</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="#" class="dropdown-item">View calendar</a>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <!-- /. tools -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body pt-0">
+                <!--The calendar -->
+                <div id="calendar" style="width: 100%"></div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <!-- /.card -->
+
+            <!-- Map card -->
+
+
+              <!-- /.card-body-->
+
+
+            <!-- /.card -->
+
+
+
+
+
+            <div class=" bg-transparent">
+                <div class="row">
+                  <div class="col-0 text-center">
+                    <div id="sparkline-1"></div>
+
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-0 text-center">
+                    <div id="sparkline-2"></div>
+
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-0 text-center">
+                    <div id="sparkline-3"></div>
+
+                  </div>
+                  <!-- ./col -->
+                </div>
+                <!-- /.row -->
+              </div>
+
+          </section>
+          <!-- right col -->
+
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+{% include 'admin_template/chart.html' %}
+{% endblock main_content %}

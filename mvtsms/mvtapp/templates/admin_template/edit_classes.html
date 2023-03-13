@@ -1,0 +1,66 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+Edit Class |Classes ID: {{classes.id}}{{staff.admin.id}}
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Edit Class </h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action ="/edit_classes_save" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Class</label>
+                    <input type="text" class="form-control" placeholder="Enter Class" name ="clas" value="{{ classes.classes_name }}">
+                    <input type="hidden"  name ="classes_id" value="{{ classes.id}}">
+                  </div>
+
+
+                  <div class="form-group">
+                    <label >Staff</label>
+                    <select class="form-control" name="staf">
+                      {% for person in staff %}
+                        <option value="{{ person.id }}" {% if person.id == subject.staff_id.id %} selected {% endif %}>{{ person.last_name }} {{ person.first_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" >
+                    <label class="form-check-label">Check me out</label>
+                  </div>
+                  <div class="form-group">
+                  {% if messages %}
+                    {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                         {% endif %}
+                      {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-pencil-alt">
+                              </i>Update</button>
+                </div>
+
+
+              </form>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

@@ -1,0 +1,113 @@
+{% extends 'staff_template/base.html' %}
+{% block page_title %}
+ {{term_.term_name}} Attendance
+{% endblock page_title %}
+{% block main_content %}
+
+
+      <section class="content">
+        <div class="container-fluid">
+        <div class="col-8">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Take Class Attendance </h3>
+              </div>
+
+                <form role="form" action ="{% url 'saveattendance' %}" method="post">
+                {% csrf_token %}
+                      <div class="form-group">
+                  {% if messages %}
+                    {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                         {% endif %}
+                      {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="row">
+                    <div class=" col-4">
+                 <div class="card-body">
+                    <label >Session Year</label>
+                    <select class="form-control" name="session_year_id">
+                      {% for ses in session_year_id %}
+                        <option value="{{ ses.id }}">{{ ses.session_start_year }} {{ ses.session_end_year }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                    <div class=" col-4">
+                  <div class=" card-body">
+                    <label >Term</label>
+                    <select class="form-control" name="term_id">
+                        <option value="{{term_.id }}">{{  term_.term_name }}</option>
+                    </select>
+                  </div>
+                    </div>
+
+                    <div class=" col-4">
+                <div class="card-body">
+                    <label >Class</label>
+                    <select class="form-control" name="classes_id">
+                        {% for c in  classes %}
+                        <option value="{{ c.id }}">{{c.classes_name}} </option>
+                         {% endfor %}
+                    </select>
+                </div>
+                </div>
+               </div>
+
+                <div style="align-right" class="card col-sm-10 card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Enter Attendance Details</h3>
+                </div>
+
+
+                  <div class="card-body row">
+
+                  <div class="form-group col-sm-4">
+                    <label >Class Learners</label>
+                    <select class="form-control" name="student_id">
+                                    {% for s in student %}
+                        <option value="{{ s.admin.id }}">{{s.admin.last_name}} {{s.admin.first_name}} </option>
+                                    {% endfor %}
+                    </select>
+
+                  </div>
+                      <div class="form-group col-sm-4" >
+                          <label >No of Times Absent</label>
+                          <input type="number" class="form-control" name="times_abs_id">
+                        </div>
+
+                      <div class="form-group col-sm-4" >
+                          <label >No of Times School Open</label>
+                          <input type="number" class="form-control" name="times_open">
+                        </div>
+                    </div>
+
+
+
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+              </form>
+
+
+
+
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

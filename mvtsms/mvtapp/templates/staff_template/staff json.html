@@ -1,0 +1,30 @@
+{% block custom_js %}
+<scripts>
+    $(document).ready(function(){
+        $("#fetch_student").click(function(){
+            var classes=$("#classes").val()
+            var session_year=$("#session_year").val()
+
+            $.ajax({
+                url:'{% url 'getstudent' %}',
+                type:'POST',
+                data:{classes:classes,session_year:session_year},
+            })
+            .done(function(response){
+                var json_data=JSON.parse(response):
+                console.log(json_data)
+                var div_data=--;
+                for(key in json_data)
+                {
+                   div_data+="input type='checkbox' checked='checked' name='student_data[]' class='form-control' value=''+json_data[key]['name']+',';> "
+                }
+                $("#student_data").html(div_data;
+
+            })
+            .fail(function(){
+                alert("Error in Fetching student")
+            })
+        })
+    })
+</scripts>
+{% endblock custom_js %}

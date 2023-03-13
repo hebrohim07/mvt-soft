@@ -1,0 +1,74 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+Manage Parents
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Manage Parent Details</h3>
+
+                        <div class="card-tools">
+                          <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>First Name</th>
+                              <th>Last Name</th>
+                              <th>User Name</th>
+                              <th>Email</th>
+                              <th>Address</th>
+                              <th>Phone No</th>
+                              <th>occupation</th>
+                              <th>Last Login</th>
+                              <th>Date Joined</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for a_parent in parent %}
+                            <tr>
+                              <td>{{ a_parent.admin.id }}</td>
+                              <td>{{ a_parent.admin.first_name }}</td>
+                              <td>{{ a_parent.admin.last_name }}</td>
+                              <td>{{ a_parent.admin.username }}</td>
+                              <td>{{ a_parent.admin.email }}</td>
+                              <td>{{ a_parent.phone }}</td>
+                              <td>{{ a_parent.occupation }}</td>
+                               <td>{{ a_parent.address }}</td>
+                              <td>{{ a_parent.admin.last_login }}</td>
+                              <td>{{ a_parent.admin.date_joined }}</td>
+                              <td><a href="/edit_parent/{{ a_parent.admin.id }}" class="btn btn-success">Edit</a></td>
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- /.card-body -->
+                      </div>
+            <!-- /.card -->
+                    </div>
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

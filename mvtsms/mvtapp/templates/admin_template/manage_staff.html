@@ -1,0 +1,86 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+Manage Staffs
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Manage Staff Details</h3>
+
+                        <div class="card-tools">
+                          <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>First Name</th>
+                              <th>Last Name</th>
+                              <th>User Name</th>
+                              <th>Email</th>
+                              <th>Gender</th>
+                              <th>Marital status</th>
+                              <th>Address</th>
+                              <th>Phone No</th>
+                              <th>Date Of Birth</th>
+                              <th>Age</th>
+                              <th>Salary</th>
+                              <th>Employment Date</th>
+                              <th>Profile Pic</th>
+                              <th>Last Login</th>
+                              <th>Date Joined</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for person in staff %}
+                            <tr>
+                              <td>{{ person.admin.id }}</td>
+                              <td>{{ person.admin.first_name }}</td>
+                              <td>{{ person.admin.last_name }}</td>
+                              <td>{{ person.admin.username }}</td>
+                              <td>{{ person.admin.email }}</td>
+                              <td>{{ person.gender }}</td>
+                              <td>{{ person.marital_status }}</td>
+                              <td>{{ person.address }}</td>
+                              <td>{{ person.phone_no }}</td>
+                              <td>{{ person.date_of_birth }}</td>
+                              <td>{{ person.age }}</td>
+                              <td>{{ person.salary }}</td>
+                              <td>{{ person.employment_date }}</td>
+                              <td>{{ person.profile_pic }}</td>
+                              <td>{{ person.admin.last_login }}</td>
+                              <td>{{ person.admin.date_joined }}</td>
+                              <td><a href="/edit_staff/{{ person.admin.id }}" class="btn btn-success">Edit</a></td>
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- /.card-body -->
+                      </div>
+            <!-- /.card -->
+                    </div>
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

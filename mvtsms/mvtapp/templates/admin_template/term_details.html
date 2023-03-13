@@ -1,0 +1,108 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+  Enter Term Details
+{% endblock page_title %}
+{% block main_content %}
+
+      <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Term Details </h3>
+              </div>
+
+              <form role="form" action ="{% url "save_termdetails" %}" method="post">
+                {% csrf_token %}
+                <div class="card card-body">
+                 <div class="form-group">
+                  {% if messages %}
+                    {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                         {% endif %}
+                      {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+
+                 <div class="form-group">
+                    <label >Session Year</label>
+                    <select class="form-control" name="session_year_id">
+                      {% for ses in session_year %}
+                        <option value="{{ ses.id }}">{{ ses.session_start_year }} {{ ses.session_end_year }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label >Term</label>
+                      <select class="form-control" name="term_id">
+                        <option>FIRST TERM</option>
+                        <option>SECOND TERM</option>
+                        <option>THIRD TERM</option>
+                      </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label >Vacation Date</label>
+                     <input type="date" class="form-control" name ="vacation_date" >
+                  </div>
+
+
+                      <div class="form-group">
+                        <label >Resumption Date</label>
+                         <input type="date" class="form-control" name ="resumption_date" >
+                      </div>
+
+
+                    <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+
+                     <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Session</th>
+                              <th>Term</th>
+                              <th>Vacation</th>
+                              <th>Resumption</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for t in termdetails %}
+                            <tr>
+                              <td>{{ t.id }}</td>
+                              <td>{{ t.session_year_id.session_start_year }}/ {{ t.session_year_id.session_end_year }}</td>
+                              <td>{{ t.term_name }}</td>
+                              <td>{{ t.vacation_date }}</td>
+                              <td>{{ t.resumption_date }}</td>
+                                 <td><a class="btn btn-danger btn-sm" href="/del_termdetails/{{t.id}}">
+                              <i class="fas fa-trash"></i>Delete</a></td>
+
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+              </form>
+            </div>
+                </div>
+            </section>
+
+
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

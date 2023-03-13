@@ -1,0 +1,68 @@
+{% extends 'staff_template/base.html' %}
+{% block page_title %}
+{{get_term.term_name}} Attendance
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">View Attendance</h3>
+
+                        <div class="card-tools">
+                          <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Class</th>
+                              <th>Learners</th>
+                              <th>No Of Times Absent</th>
+                              <th>No Of Times School Open</th>
+                              <th>No Of Times Present</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for a in attendance %}
+                            <tr>
+                              <td>{{ a.id }}</td>
+                              <td>{{ a.classes_id.classes_name }}</td>
+                              <td>{{ a.student_id.admin.last_name }}</td>
+                              <td>{{ a.times_absent }}</td>
+                              <td>{{ a.times_open }}</td>
+                              <td>{{ a.times_present }}</td>
+                              <td>{{ a.created_at }}</td>
+
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                      <!-- /.card-body -->
+                      </div>
+            <!-- /.card -->
+                    </div>
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

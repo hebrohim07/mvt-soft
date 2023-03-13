@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Myvaluetech Results</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Invoice</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 4 -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+
+  <link rel="stylesheet" href= "{% static "dist/css/adminlte.min.css" %}">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<div class="card col-sm-10 card-info">
+    <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+
+
+
+    <div class="card col-sm-12 card-info">
+    <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Third Term Broad Sheet </h3>
+              </div>
+
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+ <div class="col-sm-6 heading">
+                                        <table>
+                                             <tr>
+                                            <th>Session: </th>
+                                                 {% for ses in session_year %}
+                                            <td>{{ses.session_start_year}}- {{ses.session_end_year}}</td>
+                                                 {% endfor %}
+                                          </tr>
+                                             <tr>
+                                            <th>Term: </th>
+                                            <td>{{term_obj.term_name}}</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Class: </th>
+                                            <td>{{classes_obj.classes_name}}</td>
+                                          </tr>
+
+
+                                        </table>
+                                    </div>
+              <!-- Table row -->
+              <div class="row form-group">
+                                <div class="col-11">
+                                  <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                          <th>Learners</th>
+                                          <th>Subject</th>
+                                          <th>1st Term Agg</th>
+                                          <th>2nd Term Agg</th>
+                                          <th>1st CA</th>
+                                          <th>2nd CA</th>
+                                          <th>Unit Ass</th>
+                                          <th>Project</th>
+                                          <th>Exam Score</th>
+                                          <th>Total Score</th>
+                                          <th>Class Avg</th>
+                                          <th>Min Score</th>
+                                          <th>Max Score</th>
+                                          <th>Remarks</th>
+                                          <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for f in broad %}
+                                    <tr>
+                                      <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.term1_bs_score}}</td>
+                                      <td>{{f.term2_bs_score}}</td>
+                                      <td>{{f.score1}}</td>
+                                      <td>{{f.score2}}</td>
+                                      <td>{{f.score3}}</td>
+                                      <td>{{f.project_score}}</td>
+                                      <td>{{f.exam_score}}</td>
+                                      <td>{{f.total_score}}</td>
+                                      <td>{{data.avg}}</td>
+                                      <td>{{data.min}}</td>
+                                      <td>{{data.max}}</td>
+                                      <td>{% if f.total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+
+
+
+
+                                  </table>
+                                </div>
+
+                              </div>
+              <!-- /.row -->
+
+
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+
+
+
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+
+
+
+
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+
+
+
+
+
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+<script type="text/javascript">
+  window.addEventListener("load", window.print());
+</script>
+</html>
+

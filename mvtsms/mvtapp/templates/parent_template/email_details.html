@@ -1,0 +1,78 @@
+{% extends 'parent_template/base.html' %}
+{% block page_title %}
+Enter Login Details
+{% endblock page_title %}
+{% block main_content %}
+{% load static %}
+
+
+<div class="">
+<body class="hold-transition login-page">
+<div class="login-box">
+
+  <!-- /.login-logo -->
+  <section class="content">
+        <div class="container-fluid">
+  <div class="card float-right">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg"><b>Sign in to check results</b></p>
+
+      <form action="{% url 'checkresults' %}"  method="post">
+        {% csrf_token %}
+        <div class=" card-body  ">
+          <label >Term</label>
+          <select class="form-control" name="term_id">
+              <option value="{{ get_term.id }}">{{  get_term.term_name }}</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email_id">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          {% if messages %}
+          <div class= "col-12">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class = 'alert alert-danger' style="margin-top:10px">{{ message}} </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+  </div>
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static "plugins/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static "dist/js/adminlte.min.js" %}"></script>
+
+</body>
+</div>
+
+{% endblock main_content %}

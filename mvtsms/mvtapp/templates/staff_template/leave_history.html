@@ -1,0 +1,73 @@
+{% extends 'staff_template/base.html' %}
+{% block page_title %}
+View Leave History
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Leave History</h3>
+
+                        <div class="card-tools">
+                          <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Leave Date</th>
+                              <th>Leave Message</th>
+                              <th>Date Applied</th>
+                              <th>leave_status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for clas in staffleave %}
+                            <tr>
+                              <td>{{ clas.id }}</td>
+                              <td>{{ clas.leave_date }}</td>
+                              <td>{{ clas.leave_message }}</td>
+                              <td>{{ clas.created_at }}</td>
+                              <td>
+                                  {% if clas.leave_status == 1 %}
+                                    <span class="alert alert-success">Approved</span>
+                                  {% elif clas.leave_status == 2 %}
+                                    <span class="alert alert-danger">Rejected</span>
+                                  {% else %}
+                                    <span class="alert alert-info">Pending</span>
+                                  {% endif %}
+                              </td>
+
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                      <!-- /.card-body -->
+                      </div>
+            <!-- /.card -->
+                    </div>
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

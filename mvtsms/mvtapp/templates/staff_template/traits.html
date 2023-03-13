@@ -1,0 +1,246 @@
+{% extends 'staff_template/base.html' %}
+{% block page_title %}
+ Learners Traits
+{% endblock page_title %}
+{% block main_content %}
+
+      <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+              <div class="container-fluid">
+                <div class="card card-primary col">
+                     <div class="card-header">
+                    <h3 class="card-title">Mark Traits </h3>
+                  </div>
+
+                      <form role="form"action="{% url "savetraits" %}" method="post">
+                        {% csrf_token %}
+                      <div class="form-group">
+                      {% if messages %}
+                        {% for message in messages %}
+                          {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                             {% endif %}
+                          {% if message.tags == 'success' %}
+                            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="form-group">
+
+                    <div class="row">
+                     <div class="  col-4 ">
+                      <div class="card-body">
+                            <label >Session Year</label>
+                            <select class="form-control">
+                              {% for ses in session_year %}
+                                <option value="{{ ses.id }}">{{ ses.session_start_year }} {{ ses.session_end_year }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                         </div>
+
+                          <div class=" card-body col-4 ">
+                        <label >Term</label>
+                        <select class="form-control" name="term_id">
+                            <option value="{{ get_term.id }}">{{  get_term.term_name }}</option>
+                        </select>
+                      </div>
+
+                         <div class=" card-body col-4 ">
+                      <div class="form-group">
+                            <label >Class</label>
+                            <select class="form-control" name="classes_id">
+                              {% for clas in classes %}
+                                <option value="{{ clas.id }}">{{ clas.classes_name }} </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                            </div>
+                             </div>
+
+                      <div class="card-body">
+                        <label >Class Learners</label>
+                        <select class="form-control" name="student_id">
+                          {% for s in student %}
+                            <option value="{{ s.admin.id }}">{{ s.admin.last_name }}  {{ s.admin.first_name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="row">
+                              <div class="card card-warning col-6">
+                                  <div class="card-header">
+                                    <h3 class="card-title">Affective </h3>
+                                  </div>
+                                  <div class="card-body">
+                                <div class="form-group col">
+                                <div class="form-group row">
+                                    <label class="col-ml-6 col-form-label">Puncuality</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control"  name="Punctuality">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Leadership</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Leadership">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Reliability</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Reliability">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Neatness</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Neatness">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Politeness</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control"  name="Politeness">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Honesty</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control"  name="Honesty">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Relationship with others</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Relationship">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Attentiveness</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Attentiveness">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Perseverance</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Perseverance">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-ml-4 col-form-label">Self-discipline</label>
+                                    <div class="col-sm-2">
+                                      <input type="number" class="form-control" name="Self-discipline">
+                                    </div>
+                                </div>
+
+                              </div>
+                              </div>
+                             </div>
+
+                              <div class="col-6">
+                                      <div class="card card-info">
+                                      <div class="card-header">
+                                        <h3 class="card-title">Psychomotor </h3>
+                                      </div>
+                                      <div class="card-body">
+                                          <div class="form-group row">
+                                            <label class="col-ml-4 col-form-label">Handwriting</label>
+                                            <div class="col-sm-2">
+                                              <input type="number" class="form-control" name="Handwriting">
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                            <label class="col-ml-4 col-form-label">Sports And Games</label>
+                                            <div class="col-sm-2">
+                                              <input type="number" class="form-control" name="Sports">
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                            <label class="col-ml-4 col-form-label">Drawing And Painting</label>
+                                            <div class="col-sm-2">
+                                              <input type="number" class="form-control"  name="Drawing">
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                        <label class="col-ml-4 col-form-label"> Crafts</label>
+                                        <div class="col-sm-2">
+                                          <input type="number" class="form-control" name="Craft">
+                                        </div>
+                                      </div>
+
+                                          <div class="form-group row">
+                                        <label class="col-ml-4 col-form-label">Music</label>
+                                        <div class="col-sm-2">
+                                          <input type="number" class="form-control" name="Music">
+                                        </div>
+                                      </div>
+
+                                      </div>
+                                      </div>
+
+                                  <div class="row">
+                                      <div class="card card-success col-8">
+                            <div class="card-header">
+                            <h3 class="card-title">Student Ratings </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="col-ml-4 col-form-label">Student Ratings</label>
+                                            <label class="col-ml-4 col-form-label">5 = Excellent observable traits</label>
+                                            <label class="col-ml-4 col-form-label">4 = Good observable traits</label>
+                                            <label class="col-ml-4 col-form-label">3 = Fair but acceptable observable traits</label>
+                                            <label class="col-ml-4 col-form-label">2 = Poor level observable traits</label>
+                                            <label class="col-ml-4 col-form-label">1 = No observable traits</label>
+                                        </div>
+                                </div>
+
+                            </div>
+                                      <div class="card card-success col-4">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Key Ratings </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                            <label class="col-ml-4 col-form-label">Key Ratings</label>
+                                            <label class="col-ml-4 col-form-label">5 = Excellent</label>
+                                            <label class="col-ml-4 col-form-label">4 = Good</label>
+                                            <label class="col-ml-4 col-form-label">3 = Fair...</label>
+                                            <label class="col-ml-4 col-form-label">2 = Weak</label>
+                                            <label class="col-ml-4 col-form-label">1 = Poor</label>
+
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      <div class="card-footer">
+                      <button type="submit" class="btn btn-primary btn-block">Save</button>
+                      </div>
+
+                      </form>
+
+                    </div>
+                </div>
+              </section>
+          </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

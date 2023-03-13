@@ -1,0 +1,147 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+<div class="card col-sm-12 card-info">
+    <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Check learners results </h3>
+              </div>
+
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5><i class="fas fa-info"></i> Note:</h5>
+              This page has been enhanced for printing. Click the print button at the bottom of the sheet to test.
+            </div>
+
+
+              <!-- Table row -->
+              <div class="row form-group">
+                                <div class="col-6">
+                                  <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                          <th>Learners</th>
+                                          <th>Subject</th>
+                                          <th>1st Term Agg</th>
+                                          <th>2nd Term Agg</th>
+                                          <th>1st CA</th>
+                                          <th>2nd CA</th>
+                                          <th>Unit Ass</th>
+                                          <th>Project</th>
+                                          <th>Exam Score</th>
+                                          <th>Total Score</th>
+                                          <th>Class Avg</th>
+                                          <th>Min Score</th>
+                                          <th>Max Score</th>
+                                          <th>Remarks</th>
+                                          <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for f in broad %}
+                                    <tr>
+                                      <td>{{f.student_id.admin.last_name}} {{f.student_id.admin.first_name}}</td>
+                                      <td>{{f.subject_id.subject_name}}</td>
+                                      <td>{{f.term1_bs_score}}</td>
+                                      <td>{{f.term2_bs_score}}</td>
+                                      <td>{{f.score1}}</td>
+                                      <td>{{f.score2}}</td>
+                                      <td>{{f.score3}}</td>
+                                      <td>{{f.project_score}}</td>
+                                      <td>{{f.exam_score}}</td>
+                                      <td>{{f.total_score}}</td>
+                                      <td>{{data.avg}}</td>
+                                      <td>{{data.min}}</td>
+                                      <td>{{data.max}}</td>
+                                      <td>{% if f.total_score >= 70 %}
+                                        <div><span>EXCELLENT</span></div>
+                                        {% elif f.total_score >= 60 %}
+                                        <div><span>GREAT</span></div>
+                                        {% elif f.total_score >= 50 %}
+                                       <div> <span>GOOD</span></div>
+                                        {% elif f.total_score >= 40 %}
+                                       <div> <span>AVERAGE</span></div>
+                                        {% elif f.total_score >= 30 %}
+                                        <div><span>WEAK</span></div>
+                                        {% else %}
+                                        <div><span>POOR</span></div>
+                                        {% endif %}</td>
+                                      <td>
+                                        {% if f.total_score >= 70 %}
+                                        <div><span class="badge badge-success">A</span></div>
+                                        {% elif f.total_score >= 60 %}
+                                        <div><span class="badge badge-primary">B</span></div>
+                                        {% elif f.total_score >= 50 %}
+                                       <div> <span class="badge badge-info">C</span></div>
+                                        {% elif f.total_score >= 40 %}
+                                       <div> <span class="badge badge-info">D</span></div>
+                                        {% elif f.total_score >= 30  %}
+                                        <div><span class="badge badge-warning">E</span></div>
+                                        {% else %}
+                                        <div><span class="badge badge-danger">F</span></div>
+                                        {% endif %}
+                                      </td>
+                                    </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+
+
+
+
+                                  </table>
+                                </div>
+
+                              </div>
+              <!-- /.row -->
+
+
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+
+
+              <div class="row no-print">
+                <div class="col-12">
+                  <a class="btn btn-info btn-sm" href="{% url "broadsheet_print" term_obj.id classes_obj.id subject_id.id %}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+
+
+
+
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+
+
+
+    <!-- Content Header (Page header) -->
+
+    <!-- /.content -->
+
+    <!-- /.content -->
+{% endblock main_content %}

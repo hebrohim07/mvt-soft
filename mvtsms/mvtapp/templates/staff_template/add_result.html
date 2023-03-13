@@ -1,0 +1,202 @@
+{% extends 'staff_template/base.html' %}
+{% block page_title %}
+
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+<div class="card col-sm-10 card-info">
+    <section class="content">
+        <div class="container-fluid">
+        <div class="col">
+            <section class="content">
+                <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Enter learners results </h3>
+              </div>
+                {% if action is None %}
+              <form role="form" action ="?action=get_result" method="post">
+                {% csrf_token %}
+                   <div class="form-group">
+                      {% if messages %}
+                        {% for message in messages %}
+                          {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                             {% endif %}
+                          {% if message.tags == 'success' %}
+                            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                <div class="card-body">
+
+                   <div class="form-group">
+                    <label >Session Year</label>
+                    <select class="form-control" name="session_year_id">
+                      {% for ses in session_year %}
+                        <option value="{{ ses.id }}">{{ ses.session_start_year }} {{ ses.session_end_year }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label >Term</label>
+                    <select class="form-control" name="term_id">
+                        {% for t in term %}
+                        <option value="{{ t.id }}">{{t.term_name }}</option>
+                         {% endfor %}
+                    </select>
+                  </div>
+
+                    <div class="form-group">
+                    <label >Class</label>
+                    <select class="form-control" name="classes_id">
+                      {% for clas in classes %}
+                        <option value="{{ clas.id }}">{{ clas.classes_name }} </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+
+
+                </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Select Learner</button>
+                </div>
+              </form>
+
+                {% elif action is not None %}
+                <form role="form" action ="{% url 'saveresult_term1' %}"method="POST">
+                {% csrf_token %}
+
+                 <div class="row">
+                    <div class=" card-body col-6 ">
+                        <label >Term</label>
+                        <select class="form-control" name="term_id">
+                            <option value="{{ get_term.id }}">{{  get_term.term_name }}</option>
+                        </select>
+                      </div>
+
+                      <div class=" card-body col-6 ">
+                        <label >Class</label>
+                        <select class="form-control" name="classes_id">
+                            <option value="{{ get_classes.id }}">{{  get_classes.classes_name }} </option>
+                        </select>
+                  </div>
+                 </div>
+
+                     <div class="card-body ">
+                    <div class="form-group">
+                    <label >Class Learners</label>
+                    <select class="form-control" name="student_id">
+                      {% for s in student %}
+                        <option value="{{ s.admin.id }}">{{ s.admin.last_name }}{{ s.admin.first_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                    </div>
+                     <div class="card-body ">
+                      <div class="form-group">
+                    <label >Subject</label>
+                    <select class="form-control" name="subject_id">
+                      {% for s in subject %}
+                        <option value="{{ s.id }}">{{ s.subject_name }} </option>z
+                      {% endfor %}
+                    </select>
+                  </div>
+                    </div>
+                  <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Enter Scores </h3>
+              </div>
+
+                <div class="card-body">
+                    <div class="form-group row">
+                    <label class="col-ml-4 col-form-label">1st CA 10 %</label>
+                    <div class="col-sm-1">
+                      <input type="text" class="form-control" placeholder="10 %" name="score1">
+                    </div>
+                      <label class="col-ml-4 col-form-label">2nd CA 20%</label>
+                      <div class="col-sm-1">
+                      <input type="text" class="form-control" placeholder="20 %" name="score2">
+                      </div>
+                      <label class="col-ml-4 col-form-label">Unit Test(10%)</label>
+                      <div class="col-sm-1">
+                      <input type="text" class="form-control" placeholder="10 %" name="score3">
+                      </div>
+                      <label class="col-ml-4 col-form-label">Project (20%)</label>
+                      <div class="col-sm-1">
+                      <input type="text" class="form-control" placeholder="20 %" name="project">
+                      </div>
+                      <label class="col-ml-4 col-form-label">Exam (40%)</label>
+                      <div class="col-sm-1">
+                      <input type="text" class="form-control" placeholder="40 %" name="exam">
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+               <div class="card card-info">
+                <div class="card-header">
+                <h3 class="card-title">Enter Remarks </h3>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="col-ml-4 col-form-label">Student Remark</label>
+                            <div class="form-group">
+                                <textarea class="form-control" row="6" name="remarks"></textarea>
+                            </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+
+
+
+
+
+                </div>
+
+              </form>
+             {% else %}
+                <form role="form" action ="{% url 'addsubject' %}" method="post">
+                {% csrf_token %}
+
+
+
+
+
+              </form>
+
+
+              </form>
+             {% endif %}
+            </div>
+        </div>
+            </section>
+
+
+        </div>
+      </div>
+    </section>
+</div>
+
+
+    <!-- Content Header (Page header) -->
+
+    <!-- /.content -->
+
+    <!-- /.content -->
+{% endblock main_content %}

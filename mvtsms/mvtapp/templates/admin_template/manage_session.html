@@ -1,0 +1,85 @@
+{% extends 'admin_template/base.html' %}
+{% block page_title %}
+Add Session
+{% endblock page_title %}
+{% block main_content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Create New Session </h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action ="/savesession" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Session Start Year</label>
+                    <input type="date" class="form-control" placeholder="Enter Session" name ="session_start">
+                  </div>
+                  <div class="form-group">
+                    <label>Session End Year</label>
+                    <input type="date" class="form-control" placeholder="Enter Session" name ="session_end">
+                  </div>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" >
+                    <label class="form-check-label">Check me out</label>
+                  </div>
+                  <div class="form-group">
+                  {% if messages %}
+                    {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                         {% endif %}
+                         {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                         {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Add Session Year</button>
+                </div>
+
+
+                   <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Session Starts</th>
+                              <th>Session Ends</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for ses in sessionyear %}
+                            <tr>
+                              <td>{{ ses.id }}</td>
+                              <td>{{ ses.session_start_year }}</td>
+                              <td>{{ ses.session_end_year }}</td>
+
+                                 <td><a class="btn btn-danger btn-sm" href="/delete_session/{{ ses.id }}">
+                              <i class="fas fa-trash"></i>Delete</a></td>
+
+                            </tr>
+                          {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+
+
+              </form>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
