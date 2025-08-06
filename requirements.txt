@@ -1,0 +1,6 @@
+Django==4.2.5
+requests==2.31.0
+psycopg
+mysqlclient
+mysql-connector-python
+
